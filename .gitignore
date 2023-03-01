@@ -1,0 +1,5 @@
+*.class
+*.ctxt
+*.TXT
+*.iml
+.idea/
