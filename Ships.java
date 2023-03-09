@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Ships extends BattleShipGamePiece
+public class Ships extends Actor
 {
     /**
      * Act - do whatever the Ships wants to do. This method is called whenever
