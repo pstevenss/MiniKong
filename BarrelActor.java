@@ -12,6 +12,7 @@ public class BarrelActor extends Actor
     public int footx=-1;
     public int footy=-1;
     
+    
     private int width = 12;
     private int height = 12;
     
