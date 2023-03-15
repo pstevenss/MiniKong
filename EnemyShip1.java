@@ -12,7 +12,7 @@ public class EnemyShip1 extends Ships
     
     public EnemyShip1(){
         GreenfootImage image = getImage();
-        image.scale(image.getWidth()/2, image.getHeight()/2);
+        image.scale(image.getWidth()/3, image.getHeight()/3);
         //getImage().setTransparency(0);
         
     }

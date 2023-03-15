@@ -6,8 +6,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Tile extends BattleShipGamePiece
+public class Tile extends Actor
 {
+    public boolean guess = false;
+    public boolean ship = false;
     public Tile(){
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/3, image.getHeight()/3);
@@ -18,6 +20,35 @@ public class Tile extends BattleShipGamePiece
      */
     public void act()
     {
-        // Add your action code here.
+        if(guessed())
+        {
+            guess = true;
+        }
+        if(shipSpace())
+        {
+            ship = true;
+        }
+    }
+    public boolean guessed()
+    {
+        Actor actor = getOneObjectAtOffset(0, 0, Miss_Or_Hit.class);
+        return actor != null;
+    }
+    public boolean shipSpace()
+    {
+        Actor actor = getOneObjectAtOffset(0, 0, Ships.class);
+        return actor != null;
+    }
+    /**
+     * Checks the adyacent blocks (no diagonals) of previous missed attacks.
+     * <p>
+     * To be used by the AI for better spots while attacking.
+     * <p>
+     * Implemented using the protected functionality of getNeighbours.
+     * 
+     * @return number of missed attacks, maximum 4, minimum 0.
+     */
+    public int getMissedAttacks(){
+        return getNeighbours(1, false, Miss_Or_Hit.class).size();
     }
 }
