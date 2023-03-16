@@ -6,18 +6,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Targeter extends BattleShipGamePiece
+public class Targeter extends Actor
 {
     public static boolean playerTurn = true;
+    public Targeter()
+    {
+        GreenfootImage image = getImage();
+        image.scale(image.getWidth()/50, image.getHeight()/50);
+    }
     /**
      * Act - do whatever the Targeter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-    if(playerTurn){
-        mouseMove();
-        mouseClick();
+        if(playerTurn){
+            mouseMove();
+            mouseClick();
         }
     }
     
@@ -57,7 +62,7 @@ public class Targeter extends BattleShipGamePiece
             MouseInfo mouse = Greenfoot.getMouseInfo();
             int x = mouse.getX();
             int y = mouse.getY();
-            if(x > 16 && x < 27 && y > 5 && y < 16)
+            if(x > 18 && x < 25 && y > 5 && y < 12)
             {
                 setLocation(x,y);
             }
