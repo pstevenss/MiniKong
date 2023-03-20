@@ -116,23 +116,6 @@ public class BackGround extends World
             }
         }
         
-        if(gameState == State.LOSE)
-        {
-            if(counter < 1)
-            {
-                //addObject(winlose,85,55);
-                addObject(winlose,140,200);
-                winlose.setLose();
-                removeObject(player);
-            }
-            counter++;
-            if(counter > 100)
-            {
-                removeObject(winlose);
-                resetGame();
-            }
-        }
-        
         if(gameState == State.WIN)
         {
             if(counter < 1)
