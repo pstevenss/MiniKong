@@ -14,7 +14,7 @@ public class PlayerActor extends Actor
     
     public static enum State {STANDING,WALKING,JUMPING,CLIMBING,CLIMBINGSTANDING,FALLING,DYING,DEAD,NAN}
     
-    public int numLives = 3;
+    public int numGemsCollected = 3; //changed variable to: gems collected 
     
     /*Not a state type state*/
     private State playerState = State.NAN;
@@ -39,7 +39,7 @@ public class PlayerActor extends Actor
         guy[0] = new GreenfootImage("Guy1.png");
         guy[1] = new GreenfootImage("Guy2.png");
         guy[2] = new GreenfootImage("Guy3.png");
-        numLives = 3;
+        numGemsCollected = 3;
         playerState = State.NAN;
         //setFoot(58,363);
         walkcounter = 0;
@@ -49,7 +49,6 @@ public class PlayerActor extends Actor
     
     public void reset()
     {
-        //numLives = 3;
         playerState = State.NAN;
         //setFoot(58,363);
         walkcounter = 0;

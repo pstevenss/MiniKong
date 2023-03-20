@@ -31,7 +31,7 @@ public class GuysCounterActor extends Actor
     public void act() 
     {
         // Add your action code here.
-        switch(world.player.numLives)
+        switch(world.player.numGemsCollected)
         {
             case 3:
                 setImage(guys[3]);

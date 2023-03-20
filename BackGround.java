@@ -102,15 +102,16 @@ public class BackGround extends World
         {
             if(player.isDead())
             {
-                if(player.numLives > 0)
+                if(player.numGemsCollected > 0) /// add projectcomm pi code to change 
+                //all gems collected 
                 {
-                    player.numLives--;
+                    player.numGemsCollected--;
                     player.reset();
                 }
                 else
                 {
-                    gameState = State.LOSE;
-                    counter = 0;
+                    gameState = State.WIN;
+                    counter = 3;
                 }
             }
         }
