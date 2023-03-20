@@ -134,9 +134,9 @@ public class PlayerActor extends Actor
     
         try
         {
-            if(isTouching(CoinActor.class))
+            if(isTouching(Gem.class))
             {
-                CoinActor c = (CoinActor)getOneIntersectingObject(CoinActor.class);
+                Gem c = (Gem)getOneIntersectingObject(Gem.class);
                 world.winTheGame();
             }
         }

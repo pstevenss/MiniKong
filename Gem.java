@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class CoinActor extends Actor
+public class Gem extends Actor
 {
     private BackGround world = null;
     public int footx=-1;
@@ -16,7 +16,7 @@ public class CoinActor extends Actor
     private int height = 12;
 
     
-    public CoinActor()
+    public Gem()
     {
     }
     

@@ -11,7 +11,7 @@ public class BackGround extends World
 
     public PlayerActor player = null;
     public KongActor kong = null;
-    public CoinActor greengem = null;
+    public Gem greengem = null;
     public GuysCounterActor gca = null;
     
     public WinLoseActor winlose = null;
@@ -38,7 +38,7 @@ public class BackGround extends World
         addObject(kong,0,0);
         kong.setFoot(215,76);
        
-        greengem = new CoinActor();
+        greengem = new Gem();
         addObject(greengem,0,0);
         greengem.setFoot(140,27);
     
@@ -74,7 +74,7 @@ public class BackGround extends World
         addObject(kong,0,0);
         kong.setFoot(215,76);
        
-        greengem = new CoinActor();
+        greengem = new Gem();
         addObject(greengem,0,0);
         greengem.setFoot(140,27);
         
