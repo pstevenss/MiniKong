@@ -30,10 +30,7 @@ public class KongActor extends Actor
     public KongActor()
     {
         //setFoot(205,76);
-        kong[0] = new GreenfootImage("Kong01.png");
-        kong[1] = new GreenfootImage("Kong02.png");
-        kong[2] = new GreenfootImage("Kong03.png");
-        kong[3] = new GreenfootImage("Kong04.png");
+        // deleted other kong idles , kept kong 4 
         kong[4] = new GreenfootImage("Kong05.png");
         angrycounter = 0;
         standingcounter = 0;
@@ -50,7 +47,7 @@ public class KongActor extends Actor
         
         if(State.NAN == playerState)
         {
-            setImage(kong[0]);
+            setImage(kong[4]);
             playerState = State.BARREL;
             standingcounter = 0;
             barrelcounter = 0;
@@ -68,34 +65,6 @@ public class KongActor extends Actor
             return;
         }
         
-        if(State.BARREL == playerState)
-        {
-            switch(barrelcounter)
-            {
-                case 0:
-                case 1:
-                case 2:
-                    setImage(kong[2]);
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                    setImage(kong[4]);
-                    break;
-                default:
-                    setImage(kong[1]);
-                    break;
-            }
-            barrelcounter++;
-            if(barrelcounter > 10)
-            {
-                barrelcounter = 0;
-                playerState = State.STANDING;
-            }
-            return;
-        }
-        
         if(State.ANGRY == playerState)
         {
             angrycounter++;
@@ -109,10 +78,10 @@ public class KongActor extends Actor
             {
                 case 3:
                 case 2:
-                    setImage(kong[3]);
+                    setImage(kong[4]);
                     break;
                 default:
-                    setImage(kong[0]);
+                    setImage(kong[4]);
                     break;
             }
             
@@ -140,7 +109,7 @@ public class KongActor extends Actor
             standLimit = 15+ Greenfoot.getRandomNumber(30);
             angryLimit = 11 + Greenfoot.getRandomNumber(25);
             
-            setImage(kong[0]);
+            setImage(kong[4]);
             return;
         }
     }    
