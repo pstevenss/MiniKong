@@ -31,7 +31,7 @@ public class KongActor extends Actor
     {
         //setFoot(205,76);
         // deleted other kong idles , kept kong 4 
-        kong[4] = new GreenfootImage("Kong05.png");
+        kong[4] = new GreenfootImage("Kong04.png");
         angrycounter = 0;
         standingcounter = 0;
         barrelcounter = 0;

@@ -11,7 +11,7 @@ public class BackGround extends World
 
     public PlayerActor player = null;
     public KongActor kong = null;
-    public CoinActor coin = null;
+    public CoinActor greengem = null;
     public GuysCounterActor gca = null;
     
     public WinLoseActor winlose = null;
@@ -38,9 +38,9 @@ public class BackGround extends World
         addObject(kong,0,0);
         kong.setFoot(215,76);
        
-        coin = new CoinActor();
-        addObject(coin,0,0);
-        coin.setFoot(140,27);
+        greengem = new CoinActor();
+        addObject(greengem,0,0);
+        greengem.setFoot(140,27);
     
         gca = new GuysCounterActor();
         addObject(gca,0,0);
@@ -63,7 +63,7 @@ public class BackGround extends World
     {
         removeObject(player);
         removeObject(kong);
-        removeObject(coin);
+        removeObject(greengem);
         removeObject(gca);
         
         player = new PlayerActor();
@@ -74,9 +74,9 @@ public class BackGround extends World
         addObject(kong,0,0);
         kong.setFoot(215,76);
        
-        coin = new CoinActor();
-        addObject(coin,0,0);
-        coin.setFoot(140,27);
+        greengem = new CoinActor();
+        addObject(greengem,0,0);
+        greengem.setFoot(140,27);
         
         gca = new GuysCounterActor();
         addObject(gca,0,0);
@@ -140,7 +140,7 @@ public class BackGround extends World
                 //addObject(winlose,85,55);
                 addObject(winlose,140,200);
                 winlose.setWin();
-                removeObject(coin);
+                removeObject(greengem);
                 player.kill();
             }
             counter++;
