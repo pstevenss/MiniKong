@@ -28,8 +28,7 @@ public class CoinActor extends Actor
     {
         // Add your action code here.
     }    
-    
-    @Override
+
     public void addedToWorld(World world) {
         this.world = (BackGround) world;    
     }

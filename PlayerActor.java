@@ -131,25 +131,7 @@ public class PlayerActor extends Actor
         }
         
         /*Colission Detection stuff here*/
-        try
-        {
-            if(isTouching(BarrelActor.class))
-            {
-                BarrelActor a = (BarrelActor)getOneIntersectingObject(BarrelActor.class);
-                
-                if((a.footy < (footy + 7)) && (a.footy > (footy - 24)) && (Math.abs(a.footx-footx) < 9) )
-                {
-                    //System.out.println("Player " + footx + " " + footy + ", barrel " + a.footx + " " + a.footy);
-                    //world.removeObject(a);
-                    playerState = State.DYING;
-                    dyingcount = 0;
-                    return;
-                }
-            }
-        }
-        catch(Exception e)
-        {
-        }
+        
     
         try
         {

@@ -92,10 +92,6 @@ public class KongActor extends Actor
             {
                 barrelcounter = 0;
                 playerState = State.STANDING;
-                BarrelActor b = new BarrelActor();
-                world.addObject(b,0,0);
-                b.setFoot(190,76);
-                
             }
             return;
         }
