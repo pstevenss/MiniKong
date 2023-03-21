@@ -12,7 +12,7 @@ public class BackGround extends World
     public PlayerActor player = null;
     public KongActor kong = null;
     public Gem greengem = null;
-    public GuysCounterActor gca = null;
+    public GemsCollected gc = null;
     
     public WinLoseActor winlose = null;
         
@@ -42,9 +42,9 @@ public class BackGround extends World
         addObject(greengem,0,0);
         greengem.setFoot(140,27);
     
-        gca = new GuysCounterActor();
-        addObject(gca,0,0);
-        gca.setFoot(20,20);
+        gc = new GemsCollected();
+        addObject(gc,0,0);
+        gc.setFoot(20,20);
     
         //counter = 0;
         gameState = State.NAN;
@@ -64,7 +64,7 @@ public class BackGround extends World
         removeObject(player);
         removeObject(kong);
         removeObject(greengem);
-        removeObject(gca);
+        removeObject(gc);
         
         player = new PlayerActor();
         addObject(player, 0, 0);
@@ -78,9 +78,9 @@ public class BackGround extends World
         addObject(greengem,0,0);
         greengem.setFoot(140,27);
         
-        gca = new GuysCounterActor();
-        addObject(gca,0,0);
-        gca.setFoot(20,20);
+        gc = new GemsCollected();
+        addObject(gc,0,0);
+        gc.setFoot(20,20);
         
         counter = 0;
         gameState = State.PLAYING;
