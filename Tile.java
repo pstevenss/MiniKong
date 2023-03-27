@@ -10,7 +10,6 @@ public class Tile extends Actor
 {
     public boolean guess = false;
     public boolean ship = false;
-    
     public Tile(){
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/3, image.getHeight()/3);
