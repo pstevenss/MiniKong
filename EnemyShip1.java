@@ -14,7 +14,7 @@ public class EnemyShip1 extends Ships
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/3, image.getHeight()/3);
         //getImage().setTransparency(0);
-        
+        image.setTransparency(0);
     }
     /**
      * Act - do whatever the EnemyShip1 wants to do. This method is called whenever

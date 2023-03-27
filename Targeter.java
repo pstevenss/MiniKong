@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Targeter here.
@@ -14,6 +15,7 @@ public class Targeter extends Actor
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/50, image.getHeight()/50);
     }
+
     /**
      * Act - do whatever the Targeter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -25,36 +27,27 @@ public class Targeter extends Actor
             mouseClick();
         }
     }
-    
+
     public void mouseClick()
     {
         if(Greenfoot.mouseClicked(this))
         {   
             MouseInfo mouse = Greenfoot.getMouseInfo();
-            if(ship())
+            if(hasShip() && ! hasHitOrMiss())
             {
-                if(guessed() == false)
-                {
-                   getWorld().addObject(new Hit(), mouse.getX(), mouse.getY());
-                   playerTurn = false;
-                }
-                if(guessed() == true)
-                {
-                }
+                getWorld().addObject(new Hit(), mouse.getX(), mouse.getY());
+                hitAllShipsAtThisLocation();
+                playerTurn = false;
             }
-            else
-            {
-                if(guessed() == false){
-                    getWorld().addObject(new Miss(), mouse.getX(), mouse.getY());
-                    playerTurn = false;
-                }
-                if(guessed() == true)
-                {      
-        
-                }
+            else if (! hasHitOrMiss()){
+
+                getWorld().addObject(new Miss(), mouse.getX(), mouse.getY());
+                playerTurn = false;
             }
+
         }
     }
+
     public void mouseMove()
     {
         if(Greenfoot.mouseMoved(null))
@@ -68,14 +61,23 @@ public class Targeter extends Actor
             }
         }
     }
-    public boolean ship()
+
+    public boolean hasShip()
     {
         Actor actor = getOneObjectAtOffset(0,0,Ships.class);
         return actor != null;
     }
-    public boolean guessed()
+
+    public boolean hasHitOrMiss()
     {
         Actor actor = getOneObjectAtOffset(0,0,Miss_Or_Hit.class);
         return actor != null;
     }
+    
+    public void hitAllShipsAtThisLocation(){
+        List<Ships> shipList = (List<Ships>)getObjectsAtOffset(0,0,Ships.class);
+        for(Ships aShip : shipList){
+            aShip.hit();
+        }
     }
+}

@@ -12,10 +12,10 @@ public class Mini_Battleship_World extends World
 {
     private final int MIN_X = 2; // Minimum X coordinate of the player grid
     private final int MAX_X = 7; // Maximum X coordinate of the player grid
-    private final int MIN_X_COMPUTER = 19; // Minimum X coordinate of the computer grid
-    private final int MAX_X_COMPUTER = 24; // Maximum X coordinate of the computer grid
-    private final int MIN_Y = 6; // Minimum Y coordinate of both grids
-    private final int MAX_Y = 11; // Maximum Y coordinate of both gridspublic boolean hit = false; //Determines if a ship is hit or not.
+    private final int MIN_X_COMPUTER = 20; // Minimum X coordinate of the computer grid
+    private final int MAX_X_COMPUTER = 23; // Maximum X coordinate of the computer grid
+    private final int MIN_Y = 7; // Minimum Y coordinate of both grids
+    private final int MAX_Y = 10; // Maximum Y coordinate of both gridspublic boolean hit = false; //Determines if a ship is hit or not.
     public static boolean enemyTurn = false; //Determines if it's the enemy's turn.
     public static boolean hit = false; //Determines if a hit was guessed on the previous turn
     private static int hitX; //Keeps track of the last guess on the x coord.
@@ -27,28 +27,38 @@ public class Mini_Battleship_World extends World
     private int streak; //Number of hits in a row.
     private int direction; //Direction of attack in a streak.
     private int switching; //Number of times direction has changed during a streak.
+    private Ships[] playerShips; //Player ships
+    private Ships[] computerShips; //Computer ships
+    private Targeter target; // Player Target
+    GreenfootSound backgroundMusic = new GreenfootSound("Gelato Beach - Super Mario Sunshine.mp3");
+    
     /**
      * Constructor for objects of class Mini_Battleship_World.
      * 
      */
     public Mini_Battleship_World()
     {    
-        // Create a new world with 32x22 cells with a cell size of 20x20 pixels.
+        // Create a new world with 27x18 cells with a cell size of 20x20 pixels.
         super(27, 18, 20);
         setup();
+        
     }
     
     public void act()
     {
+        backgroundMusic.playLoop();
         if(Targeter.playerTurn == false)
         {
             enemyTurn = true;
+            gameOver();
+
         }
         
         if(enemyTurn)
         {
             guess();
-            endGame();
+            gameOver();
+
         }
         
         Targeter.playerTurn = true;
@@ -66,20 +76,65 @@ public class Mini_Battleship_World extends World
             }
         }
         
-
-        addObject(new PlayerShip1(), 2,14);
-        addObject(new PlayerShip1(), 6,14);
-        addObject(new PlayerShip2(), 4,16);
-        addObject(new StartButton(), 13,15);
+        //Creating player ships
+        playerShips = new Ships[3];
         
-        addObject(new EnemyShip2(), 21,11);
-        addObject(new EnemyShip2(), 20,6);
-        addObject(new EnemyShip1(), 23,8);
+        playerShips[0] = new PlayerShip1();
+        playerShips[1] = new PlayerShip1();
+        playerShips[2] = new PlayerShip2();
+        
+        //Creating computer ships
+        computerShips = new Ships[3];
+        
+        computerShips[0] = new EnemyShip2();
+        computerShips[1] = new EnemyShip2();
+        computerShips[2] = new EnemyShip1();
+        
+        //Putting player ships into the world
+        addObject(playerShips[0], 2,14);
+        addObject(playerShips[1], 6,14);
+        addObject(playerShips[2], 4,16);        
+        
+        //Places computer ships randomly on enemy ship board
+        //for i = the amount of ships >= 0, i-- (i think)
+        //x coord is the minimum enemy grid value + a random number determined
+        //by max grid num - min grid num + 1
+        for(int i = computerShips.length - 1; i >= 0; i--) {
+            int posX = MIN_X_COMPUTER + Greenfoot.getRandomNumber(MAX_X_COMPUTER - MIN_X_COMPUTER + 1);
+            int posY = MIN_Y + Greenfoot.getRandomNumber(MAX_Y - MIN_Y + 1);
+            
+            addObject(computerShips[i],posX,posY);
+            
+        }
+        
+        
+        //Creating the start button
+        addObject(new StartButton(), 13,15);
 
-        //addObject(new EnemyShip2(),x,y);
-        //addObject(new EnemyShip2(),x,y);
-        //addObject(new EnemyShip1(),x,y);
-
+    }
+    
+    //Ends game- Either shows try again with play again button
+    // or Shows game over with continue button
+    private void gameOver(){
+        //Should execute if all the player's ships has hit markers on each 
+        //of its tiles
+        if (playerShips[0].isSunk() && playerShips[1].isSunk() && 
+            playerShips[2].isSunk()) {
+            // Player wins
+            //Greenfoot.playSound("cheer.wav");
+            removeObject(target);
+            Greenfoot.setWorld(new LoseFrame());
+        }
+        
+        //Should execute if all the computer's ships has hit markers on each 
+        //of its tiles
+        if (computerShips[0].isSunk() && computerShips[1].isSunk() && 
+            computerShips[2].isSunk()) {
+            // Computer wins
+            //Greenfoot.playSound("atomic_bomb.wav");
+            removeObject(target);
+            Greenfoot.setWorld(new WinFrame());
+        }
     }
     
     public void guess()
@@ -209,7 +264,7 @@ public class Mini_Battleship_World extends World
         } while (!inGrid() || alreadyGuessed());
         Ships ship = getShip();
         if (ship != null) {
-            // Target's on a ship
+            //Target's on a ship
             //Greenfoot.playSound(need to find a sound);
             addObject(new Hit(), x, y);
             Greenfoot.delay(50);
@@ -224,7 +279,7 @@ public class Mini_Battleship_World extends World
                 streak++;
             }
         } else {
-            // The AI misses.
+            //The AI misses.
             //Greenfoot.playSound(i need to get a miss sound);
             addObject(new Miss(), x, y);
             Greenfoot.delay(50);
@@ -263,10 +318,7 @@ public class Mini_Battleship_World extends World
         if (ship == null) {
             return null;
         }
-        
-        //if (ship.isBlank(x, y)) {
-          //  return null;
-        //} else {
+    
         return ship;
         }
     
@@ -284,13 +336,5 @@ public class Mini_Battleship_World extends World
        {
            return false;
        }
-    }
-    
-    public void endGame()
-    {
-        if(PlayerShip1.shipSunk && PlayerShip2.shipSunk || EnemyShip1.shipSunk && EnemyShip2.shipSunk)
-        {
-            Greenfoot.stop();
-        }
     }
 }
