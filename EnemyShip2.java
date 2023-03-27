@@ -13,16 +13,14 @@ public class EnemyShip2 extends Ships
     public EnemyShip2(){
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/2, image.getHeight()/2);
-        image.setTransparency(0);
+        //getImage().setTransparency(0);
     }
     /**
      * Act - do whatever the EnemyShip2 wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
-    
     {
-
         // Add your action code here.
     }
 }
