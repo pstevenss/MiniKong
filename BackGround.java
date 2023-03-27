@@ -11,8 +11,8 @@ public class BackGround extends World
 
     public PlayerActor player = null;
     public KongActor kong = null;
-    public CoinActor coin = null;
-    public GuysCounterActor gca = null;
+    public Gem greengem = null;
+    public GemCollected gc = null;
     
     public WinLoseActor winlose = null;
         
@@ -28,7 +28,7 @@ public class BackGround extends World
     public BackGround()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1);        
+        super(288, 376,1);        
         
         player = new PlayerActor();
         addObject(player, 0, 0);
@@ -38,13 +38,13 @@ public class BackGround extends World
         addObject(kong,0,0);
         kong.setFoot(215,76);
        
-        coin = new CoinActor();
-        addObject(coin,0,0);
-        coin.setFoot(140,27);
+        greengem = new Gem();
+        addObject(greengem,0,0);
+        greengem.setFoot(140,27);
     
-        gca = new GuysCounterActor();
-        addObject(gca,0,0);
-        gca.setFoot(20,20);
+        gc = new GemCollected();
+        addObject(gc,0,0);
+        gc.setFoot(20,20);
     
         //counter = 0;
         gameState = State.NAN;
@@ -63,8 +63,8 @@ public class BackGround extends World
     {
         removeObject(player);
         removeObject(kong);
-        removeObject(coin);
-        removeObject(gca);
+        removeObject(greengem);
+        removeObject(gc);
         
         player = new PlayerActor();
         addObject(player, 0, 0);
@@ -74,13 +74,13 @@ public class BackGround extends World
         addObject(kong,0,0);
         kong.setFoot(215,76);
        
-        coin = new CoinActor();
-        addObject(coin,0,0);
-        coin.setFoot(140,27);
+        greengem = new Gem();
+        addObject(greengem,0,0);
+        greengem.setFoot(140,27);
         
-        gca = new GuysCounterActor();
-        addObject(gca,0,0);
-        gca.setFoot(20,20);
+        gc = new GemCollected();
+        addObject(gc,0,0);
+        gc.setFoot(20,20);
         
         counter = 0;
         gameState = State.PLAYING;
@@ -102,33 +102,17 @@ public class BackGround extends World
         {
             if(player.isDead())
             {
-                if(player.numLives > 0)
+                if(player.numGemsCollected > 0) /// add projectcomm pi code to change 
+                //all gems collected 
                 {
-                    player.numLives--;
+                    player.numGemsCollected--;
                     player.reset();
                 }
                 else
                 {
-                    gameState = State.LOSE;
-                    counter = 0;
+                    gameState = State.WIN;
+                    counter = 3;
                 }
-            }
-        }
-        
-        if(gameState == State.LOSE)
-        {
-            if(counter < 1)
-            {
-                //addObject(winlose,85,55);
-                addObject(winlose,140,200);
-                winlose.setLose();
-                removeObject(player);
-            }
-            counter++;
-            if(counter > 100)
-            {
-                removeObject(winlose);
-                resetGame();
             }
         }
         
@@ -139,7 +123,7 @@ public class BackGround extends World
                 //addObject(winlose,85,55);
                 addObject(winlose,140,200);
                 winlose.setWin();
-                removeObject(coin);
+                removeObject(greengem);
                 player.kill();
             }
             counter++;

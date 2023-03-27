@@ -1,12 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GuysCounterActor here.
+ * Write a description of class GemCollected here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class GuysCounterActor extends Actor
+public class GemCollected extends Actor
 {
      private BackGround world = null;
     public int footx=-1;
@@ -15,35 +15,35 @@ public class GuysCounterActor extends Actor
     private int width = 22;
     private int height = 14;
     
-    private GreenfootImage guys[] = new GreenfootImage[4];
+    private GreenfootImage greengem[] = new GreenfootImage[4];
     
-    public GuysCounterActor()
+    public GemCollected()
     {
-        guys[0] = new GreenfootImage("guys0.png");
-        guys[1] = new GreenfootImage("guys1.png");
-        guys[2] = new GreenfootImage("guys2.png");
-        guys[3] = new GreenfootImage("guys3.png");
+        greengem[0] = new GreenfootImage("greengem.png");
+        greengem[1] = new GreenfootImage("greengem.png");
+        greengem[2] = new GreenfootImage("greengem2.png");
+        greengem[3] = new GreenfootImage("greengem3.png");
     }
     /**
-     * Act - do whatever the GuysCounterActor wants to do. This method is called whenever
+     * Act - do whatever the GemsCollected wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
     {
         // Add your action code here.
-        switch(world.player.numLives)
+        switch(world.player.numGemsCollected)
         {
             case 3:
-                setImage(guys[3]);
+                setImage(greengem[3]);
                 break;
             case 2:
-                setImage(guys[2]);
+                setImage(greengem[2]);
                 break;
             case 1:
-                setImage(guys[1]);
+                setImage(greengem[1]);
                 break;
             default:
-                setImage(guys[0]);
+                setImage(greengem[0]);
                 break;
         }
     }    

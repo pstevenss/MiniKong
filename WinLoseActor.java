@@ -14,17 +14,11 @@ public class WinLoseActor extends Actor
     public WinLoseActor()
     {
         msg[0] = new GreenfootImage("youwin.png");
-        msg[1] = new GreenfootImage("youlose.png");
     }
     
     public void setWin()
     {
         setImage(msg[0]);
-    }
-    
-    public void setLose()
-    {
-        setImage(msg[1]);
     }
     
     /**
