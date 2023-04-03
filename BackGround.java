@@ -159,6 +159,36 @@ public class BackGround extends World
             return true;
         }
         
+        if(x >= 168 && x < 180 && y >= 212 && y < 263)
+        {
+            return true;
+        }
+        
+        if(x >= 52 && x < 64 && y >= 166 && y < 209)
+        {
+            return true;
+        }
+        
+        if(x >= 166 && x < 178 && y >= 112 && y < 163)
+        {
+            return true;
+        }
+        
+        if(x >= 220 && x < 232 && y >= 116 && y < 159)
+        {
+            return true;
+        }
+        
+        if(x >= 38 && x < 50 && y >= 73 && y < 107)
+        {
+            return true;
+        }
+        
+        if(x >= 170 && x < 182 && y >= 0 && y < 77)
+        {
+            return true;
+        }
+        
         /*busted ladders*/
         if(x >= 132 && x < 144 && y >= 346 && y < 365)
         {
