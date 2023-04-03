@@ -11,14 +11,47 @@ public class Ships extends Actor
     private Ships icon = null; // ship image on botton of the screen    
     protected int size; // number of cells used for display ship
     private boolean sunk = false; //Keeps track if a ship got completed destroyed.
+    int numOfHits; //Keeps track of how many times the ship got hit
+    
     /**
      * Act - do whatever the Ships wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        // Add your action code here.
+        if(Greenfoot.mouseClicked(this)){
+            
+        }
     }
+    
+    public int getNumberOfHits(){
+        return numOfHits;
+    }
+    
+    /*
+    public boolean shipsInGrid(){
+        boolean status = false;
+        for (int shipIndex = 0; shipIndex >= playerShips.length - 1; shipIndex++){
+            if ((playerShips[shipIndex].getX() < MIN_X && playerShips[shipIndex].getX() > MAX_X) && 
+            (playerShips[shipIndex].getY() < MIN_Y && playerShips[shipIndex].getY() > MAX_Y)){
+                status = true;
+            }
+        }
+        return status;
+    }
+    
+
+    public static boolean shipInGrid(){
+        boolean status = false;
+        
+        if ( 7 > EnemyShip1.getY() && this.getY() < 11 && 
+        2 > this.getX() && this.getX() < 7 ){
+                status = true;
+            }
+        return status;
+    }
+    */
+   
     /**
      * Gets the ship status.
      * 
