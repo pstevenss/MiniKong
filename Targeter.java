@@ -14,6 +14,7 @@ public class Targeter extends Actor
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/50, image.getHeight()/50);
     }
+    
     /**
      * Act - do whatever the Targeter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -31,30 +32,24 @@ public class Targeter extends Actor
         if(Greenfoot.mouseClicked(this))
         {   
             MouseInfo mouse = Greenfoot.getMouseInfo();
-            if(ship())
+            if(isShip())
             {
-                if(guessed() == false)
+                if(isAlreadyGuessed() == false)
                 {
                    getWorld().addObject(new Hit(), mouse.getX(), mouse.getY());
                    playerTurn = false;
                 }
-                if(guessed() == true)
-                {
-                }
             }
             else
             {
-                if(guessed() == false){
+                if(isAlreadyGuessed() == false){
                     getWorld().addObject(new Miss(), mouse.getX(), mouse.getY());
                     playerTurn = false;
-                }
-                if(guessed() == true)
-                {      
-        
                 }
             }
         }
     }
+    
     public void mouseMove()
     {
         if(Greenfoot.mouseMoved(null))
@@ -68,12 +63,12 @@ public class Targeter extends Actor
             }
         }
     }
-    public boolean ship()
+    public boolean isShip()
     {
         Actor actor = getOneObjectAtOffset(0,0,Ships.class);
         return actor != null;
     }
-    public boolean guessed()
+    public boolean isAlreadyGuessed()
     {
         Actor actor = getOneObjectAtOffset(0,0,Miss_Or_Hit.class);
         return actor != null;

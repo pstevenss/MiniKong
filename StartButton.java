@@ -9,22 +9,27 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class StartButton extends Actor
 {
     public static boolean gameStart = false;
-    
+
     public StartButton(){
         gameStart = false;
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/2, image.getHeight()/2);
     }
+
     /**
      * Act - do whatever the StartButton wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        if(Greenfoot.mouseClicked(this)){
+        Mini_Battleship_World myWorld = (Mini_Battleship_World)getWorld();
+        if(Greenfoot.mouseClicked(this) && myWorld.shipsInGrid() == true){
             gameStart = true;
             getWorld().addObject(new Targeter(),19,6);
             getWorld().removeObject(this);
+        } else {
+            gameStart = false;
         }
+
     }
 }

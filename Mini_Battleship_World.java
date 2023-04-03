@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Write a description of class Mini_Battleship_World here.
  * 
- * @author Justin Tolbert (Thanks to brian5021 and 
+ * @author Justin Tolbert (Thanks to brian5021 and MIN 
  * Manuel Alejandro Valdes-Marrero for reference code)
  * @version 1.0
  */
@@ -12,9 +12,9 @@ public class Mini_Battleship_World extends World
 {
     private final int MIN_X = 2; // Minimum X coordinate of the player grid
     private final int MAX_X = 7; // Maximum X coordinate of the player grid
-    private final int MIN_X_COMPUTER = 19; // Minimum X coordinate of the computer grid
+    private final int MIN_X_COMPUTER = 20; // Minimum X coordinate of the computer grid
     private final int MAX_X_COMPUTER = 24; // Maximum X coordinate of the computer grid
-    private final int MIN_Y = 6; // Minimum Y coordinate of both grids
+    private final int MIN_Y = 7; // Minimum Y coordinate of both grids
     private final int MAX_Y = 11; // Maximum Y coordinate of both gridspublic boolean hit = false; //Determines if a ship is hit or not.
     public static boolean enemyTurn = false; //Determines if it's the enemy's turn.
     public static boolean hit = false; //Determines if a hit was guessed on the previous turn
@@ -26,37 +26,44 @@ public class Mini_Battleship_World extends World
     private int y; //Y Location of new guess.
     private int streak; //Number of hits in a row.
     private int direction; //Direction of attack in a streak.
+    GreenfootSound backgroundMusic = new GreenfootSound("Gelato Beach - Super Mario Sunshine.mp3"); //Background Music
     private int switching; //Number of times direction has changed during a streak.
+    private Ships[] playerShips; // Player ships
+    private Ships[] computerShips; // Enemy ships
+    public static boolean isInGrid = false; //Sees if a ship is in the player grid
     /**
      * Constructor for objects of class Mini_Battleship_World.
      * 
      */
     public Mini_Battleship_World()
     {    
-        // Create a new world with 32x22 cells with a cell size of 20x20 pixels.
+        // Create a new world with 27x18 cells with a cell size of 20x20 pixels.
         super(27, 18, 20);
         setup();
     }
-    
+
     public void act()
     {
+        backgroundMusic.playLoop();
         if(Targeter.playerTurn == false)
         {
             enemyTurn = true;
         }
-        
+
         if(enemyTurn)
         {
             guess();
             endGame();
         }
-        
+
         Targeter.playerTurn = true;
         enemyTurn = false;
     }
-    
+
+
     public void setup()
     {
+        //Creating grids for player and enemy
         for(int x=0; x<=5; x++)
         {
             for(int y=0; y <=5; y++)
@@ -65,22 +72,38 @@ public class Mini_Battleship_World extends World
                 addObject(new Tile(), x+19, y+6);
             }
         }
-        
 
+        // Creating player ships
+
+        playerShips = new Ships[3];
+        playerShips[0] = new PlayerShip1();
+        playerShips[1] = new PlayerShip1();
+        playerShips[2] = new PlayerShip2();
+
+        //Adding player ships and start button to the world 
         addObject(new PlayerShip1(), 2,14);
         addObject(new PlayerShip1(), 6,14);
         addObject(new PlayerShip2(), 4,16);
         addObject(new StartButton(), 13,15);
-        
-        addObject(new EnemyShip2(), 21,11);
-        addObject(new EnemyShip2(), 20,6);
-        addObject(new EnemyShip1(), 23,8);
+        addObject(new DirectionsButton(), 13,2);
 
-        //addObject(new EnemyShip2(),x,y);
-        //addObject(new EnemyShip2(),x,y);
-        //addObject(new EnemyShip1(),x,y);
+        computerShips = new Ships[3];
+        computerShips[0] = new EnemyShip2();
+        computerShips[1] = new EnemyShip2();
+        computerShips[2] = new EnemyShip1();
 
+        for (int i = computerShips.length - 1; i >= 0; i--) {
+            // Generates random positions 
+            int posX;
+            int posY;
+
+            posX = MIN_X_COMPUTER + Greenfoot.getRandomNumber(MAX_X_COMPUTER - MIN_X_COMPUTER);
+            posY = MIN_Y + Greenfoot.getRandomNumber(MAX_Y - MIN_Y);
+
+            addObject(computerShips[i], posX, posY);
+        }
     }
+
     
     public void guess()
     {
@@ -92,7 +115,7 @@ public class Mini_Battleship_World extends World
                 streak = 0;
                 switching = 0;
             }
-            
+
             if(!hit && (switching >=2 || streak >=3)){
                 //Streak being more than 3 and switching being more
                 //than 2 means they probably hit more than one ship.
@@ -101,7 +124,7 @@ public class Mini_Battleship_World extends World
                 hitY = initialHitY;
                 streak = 1;
             }
-            
+
             if(!hit){
                 //If AI just hit something with no prior history:
                 switching = 0;
@@ -135,24 +158,24 @@ public class Mini_Battleship_World extends World
                         direction = Greenfoot.getRandomNumber(4);
                         count++;
                         switch(direction){
-                            //Each case is a random direction- 
-                            //up, down, left, or right.
+                                //Each case is a random direction- 
+                                //up, down, left, or right.
                             case 0:
-                            x = hitX + 1;
-                            y = hitY;
-                            break;
+                                x = hitX + 1;
+                                y = hitY;
+                                break;
                             case 1:
-                            x = hitX;
-                            y = hitY + 1;
-                            break;
+                                x = hitX;
+                                y = hitY + 1;
+                                break;
                             case 2:
-                            x = hitX - 1;
-                            y = hitY;
-                            break;
+                                x = hitX - 1;
+                                y = hitY;
+                                break;
                             case 3:
-                            x = hitX;
-                            y = hitY - 1;
-                            break;
+                                x = hitX;
+                                y = hitY - 1;
+                                break;
                         }
                     }while ((!inGrid() || alreadyGuessed()) && count < 20);
                 } else {
@@ -160,21 +183,21 @@ public class Mini_Battleship_World extends World
                     //attack in the same directions.
                     switch (direction) {
                         case 0: 
-                        x = hitX + 1;
-                        y = hitY;
-                        break;
+                            x = hitX + 1;
+                            y = hitY;
+                            break;
                         case 1:
-                        x = hitX;
-                        y = hitY + 1;
-                        break;
+                            x = hitX;
+                            y = hitY + 1;
+                            break;
                         case 2:
-                        x = hitX - 1;
-                        y = hitY;
-                        break;
+                            x = hitX - 1;
+                            y = hitY;
+                            break;
                         case 3:
-                        x = hitX;
-                        y = hitY - 1;
-                        break;
+                            x = hitX;
+                            y = hitY - 1;
+                            break;
                     }
                     if (!inGrid() || alreadyGuessed()) {
                         // change direction 180 degrees, attack other side
@@ -182,21 +205,21 @@ public class Mini_Battleship_World extends World
                         switching ++;
                         switch (direction) {
                             case 0: 
-                            x = hitX + streak;
-                            y = hitY;
-                            break;
+                                x = hitX + streak;
+                                y = hitY;
+                                break;
                             case 1:
-                            x = hitX;
-                            y = hitY + streak;
-                            break;
+                                x = hitX;
+                                y = hitY + streak;
+                                break;
                             case 2:
-                            x = hitX - streak;
-                            y = hitY;
-                            break;
+                                x = hitX - streak;
+                                y = hitY;
+                                break;
                             case 3:
-                            x = hitX;
-                            y = hitY - streak;
-                            break;
+                                x = hitX;
+                                y = hitY - streak;
+                                break;
                         }
                         if (!inGrid() || alreadyGuessed()){
                             //AI can't find the next ship piece
@@ -230,7 +253,7 @@ public class Mini_Battleship_World extends World
             Greenfoot.delay(50);
         }
     }
-    
+
     /**
      * Validates if the guessed coordinates are inside the player grid.
      * 
@@ -240,6 +263,17 @@ public class Mini_Battleship_World extends World
         return (x >= MIN_X && x <= MAX_X && y >= MIN_Y && y <= MAX_Y);
     }
     
+    public boolean shipsInGrid(){
+        int numInGrid = 0;
+        for (int shipIndex = 0; shipIndex >= playerShips.length - 1; shipIndex++){
+            if ((playerShips[shipIndex].getX() >= MIN_X && playerShips[shipIndex].getX() <= MAX_X) && 
+            (playerShips[shipIndex].getY() >= MIN_Y && playerShips[shipIndex].getY() <= MAX_Y)){
+                numInGrid++;
+            }
+        }
+        return true;
+    }
+
     /** 
      * Finds out if the guessed coords have already been hit
      * 
@@ -248,7 +282,7 @@ public class Mini_Battleship_World extends World
     private boolean alreadyGuessed() {
         return (getObjectsAt(x, y, Miss_Or_Hit.class).size() !=0);
     }
-    
+
     /**
      * Gets the ship, if any, in the guessed coordinates.
      * 
@@ -263,29 +297,28 @@ public class Mini_Battleship_World extends World
         if (ship == null) {
             return null;
         }
-        
+
         //if (ship.isBlank(x, y)) {
-          //  return null;
+        //  return null;
         //} else {
         return ship;
-        }
-    
-    
+    }
+
     /**
      * Make sure the guess is inside the grid
      */
     public boolean xAndY()
     {
-       if(initialHitX > 0 && initialHitX < 8 && initialHitY > 5 && initialHitY < 12)
-       {
-           return true;
-       }
-       else
-       {
-           return false;
-       }
+        if(initialHitX > 0 && initialHitX < 8 && initialHitY > 5 && initialHitY < 12)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    
+
     public void endGame()
     {
         if(PlayerShip1.shipSunk && PlayerShip2.shipSunk || EnemyShip1.shipSunk && EnemyShip2.shipSunk)
