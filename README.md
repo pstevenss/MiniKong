@@ -1,3 +1,10 @@
+# MiniKong
+MiniKong is a greenfoot Java-based game that draws inspiration from the classic retro game Donkey Kong. The game features challenging levels that requires the player to climb ladders, collect gems, and play mini-games to reach the end goal.
+
+One unique feature of MiniKong is the incorporation of mini-games in between platforms. These mini-games require players to use critical thinking skills to solve puzzles and challenges within a set time limit. Successfully completing these mini-games allows the player to collect a gem, signifying completion of the level.
+
+
+
 # Week of January 09
 * Groups were made 
 * Dr. Rasamny introduced the class to the project
