@@ -92,7 +92,7 @@ College Students needs :
 * Made more objectives on Monday.com and assigned people to tasks
 * Configured the Raspberry Pi more to have servos work with them 
 * Wireframed the MiniKong game with drawings on a whiteboard
-    * [Drawings]()
+    * [Drawings](https://cdn.discordapp.com/attachments/1067121091484590191/1096170389069119628/image0.jpg)
 
 # Week of February 27
 ### **Monday Class Meeting Four**
