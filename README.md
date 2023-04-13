@@ -136,5 +136,7 @@ Dr. Rasamny helped make branches for each minigame, taught us how to use GitHub,
 * Members worked on games, presentations, and blog for the week
 
 # Week of April 10
+* Members worked on fixing bugs, games, and presentations for the week
+
 # Week of April 17
 # Week of April 24
