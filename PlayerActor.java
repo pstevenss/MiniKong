@@ -10,134 +10,110 @@ public class PlayerActor extends Actor
 {
     
     private GreenfootImage[] guy = new GreenfootImage[3];
-    private BackGround world = null;
-    
-    public static enum State {STANDING,WALKING,JUMPING,CLIMBING,CLIMBINGSTANDING,FALLING,DYING,DEAD,NAN}
-    
-    public int numGemsCollected = 3; //changed variable to: gems collected 
-    
-    /*Not a state type state*/
-    private State playerState = State.NAN;
-    static final int width = 18;
-    static final int height = 27;
-    
-    public int footx = -1;
-    public int footy = -1;
-    private int walkcounter = 0;
-    private int fallcount = 0;
-    private int chx = 0;
-    private int jumpcounter = 0;
-    public static final int JUMPTIME = 7;
-    
-    public static boolean hasMoved = false;
-    
-    private int dyingcount = 0;
-    
-    public PlayerActor()
-    {
-        super();
-        guy[0] = new GreenfootImage("Guy1.png");
-        guy[1] = new GreenfootImage("Guy2.png");
-        guy[2] = new GreenfootImage("Guy3.png");
-        numGemsCollected = 3;
-        playerState = State.NAN;
-        //setFoot(58,363);
-        walkcounter = 0;
-        fallcount = 0;
-        jumpcounter = 0;
+private BackGround world = null;
+
+public static enum State {STANDING,WALKING,JUMPING,CLIMBING,CLIMBINGSTANDING,FALLING,DYING,DEAD,NAN}
+
+public int numGemsCollected = 3; //new variable to keep track of gems collected
+
+private State playerState = State.NAN;
+static final int width = 18;
+static final int height = 27;
+
+public int footx = -1;
+public int footy = -1;
+private int walkcounter = 0;
+private int fallcount = 0;
+private int chx = 0;
+private int jumpcounter = 0;
+public static final int JUMPTIME = 7;
+
+public static boolean hasMoved = false;
+
+private int dyingcount = 0;
+
+public PlayerActor() {
+    super();
+    guy[0] = new GreenfootImage("Guy1.png");
+    guy[1] = new GreenfootImage("Guy2.png");
+    guy[2] = new GreenfootImage("Guy3.png");
+    playerState = State.NAN;
+    walkcounter = 0;
+    fallcount = 0;
+    jumpcounter = 0;
+}
+
+public void reset() {
+    playerState = State.NAN;
+    walkcounter = 0;
+    fallcount = 0;
+    jumpcounter = 0;
+}
+
+public void kill() {
+    playerState = State.DEAD;
+}
+
+public boolean isAlive() {
+    if(State.DYING == playerState || State.DEAD == playerState|| State.NAN == playerState) {
+        return false;
     }
-    
-    public void reset()
-    {
-        playerState = State.NAN;
-        //setFoot(58,363);
-        walkcounter = 0;
-        fallcount = 0;
-        jumpcounter = 0;
-    }
-    
-    public void kill()
-    {
-        playerState = State.DEAD;
-    }
-    
-    public boolean isAlive()
-    {
-        if(State.DYING == playerState || State.DEAD == playerState|| State.NAN == playerState)
-        {
-            return false;
-        }
+    return true;
+}
+
+public boolean isDead() {
+    if(State.DEAD == playerState) {
         return true;
     }
+    return false;
+}
+
+public boolean isDying() {
+    if(State.DYING == playerState) {
+        return true;
+    }
+    return false;
+}
+public boolean isGemTouching(Class<?> cls) {
+    return isTouching(cls);
+}
+
+/**
+ * Act - do whatever the PlayerActor wants to do. This method is called whenever
+ * the 'Act' or 'Run' button gets pressed in the environment.
+ */
+public void act() {
     
-    public boolean isDead()
-    {
-        if(State.DEAD == playerState)
-        {
-            return true;
-        }
-        return false;
+    if(State.NAN == playerState) {
+        setFoot(footx,footy);
+        playerState = State.STANDING;
+        walkcounter = 0;
+        setImage(guy[0]);
+        hasMoved = false;
+        setFoot(58,363);
+        setRotation(0);
     }
     
-    public boolean isDying()
-    {
-        if(State.DYING == playerState)
-        {
-            return true;
-        }
-        return false;
+    if(State.DEAD == playerState) {
+        setRotation(0);
+        return;
     }
     
-    /**
-     * Act - do whatever the PlayerActor wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        
-        //System.out.println("Hi");
-        //check for dying and then check for dead
-        // An initial state player just constructed
-        if(State.NAN == playerState)
-        {
-            setFoot(footx,footy);
-            playerState = State.STANDING;
-            walkcounter = 0;
-            setImage(guy[0]);
-            hasMoved = false;
-            setFoot(58,363);
-            setRotation(0);
+    if(State.DYING == playerState) {
+        dyingcount++;
+        setRotation(45*dyingcount);
+        if(dyingcount > 20) {
+            playerState = State.DEAD;
+            dyingcount = 0;
         }
-        
-        if(State.DEAD == playerState)
-        {
-            //playerState = State.NAN;
-            //Stuck here until an external force makes us live again.
-            setRotation(0);
-            return;
-        }
-        
-        if(State.DYING == playerState)
-        {
-            dyingcount++;
-            setRotation(45*dyingcount);
-            if(dyingcount > 20)
-            {
-                playerState = State.DEAD;
-                dyingcount = 0;
-            }
-            return;
-        }
-        
-        /*Colission Detection stuff here*/
-        
+        return;
+    }
     
-        try
-        {
-            if(isTouching(Gem.class))
-            {
-                Gem c = (Gem)getOneIntersectingObject(Gem.class);
-                world.winTheGame();
+    //collision detection
+    try {
+        if(isTouching(Gem.class)) {
+            Gem gem = (Gem)getOneIntersectingObject(Gem.class);
+            world.winTheGame();
             }
         }
         catch(Exception e)
@@ -336,7 +312,7 @@ public class PlayerActor extends Actor
         }
         
         
-    }
+    }    
     
     public void processClimbingAction()
     {
@@ -366,6 +342,7 @@ public class PlayerActor extends Actor
         {
             playerState = State.CLIMBINGSTANDING;
         }
+        
     }
     
     @Override

@@ -29,24 +29,31 @@ public class GemCollected extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
-    {
-        // Add your action code here.
-        switch(world.player.numGemsCollected)
-        {
-            case 3:
-                setImage(greengem[3]);
-                break;
-            case 2:
-                setImage(greengem[2]);
-                break;
-            case 1:
-                setImage(greengem[1]);
-                break;
-            default:
-                setImage(greengem[0]);
-                break;
+{
+    if (isTouching(PlayerActor.class)) {
+        world.player.numGemsCollected--;
+        if (world.player.numGemsCollected < 0) {
+            world.player.numGemsCollected = 0;
         }
-    }    
+    }
+    
+    switch(world.player.numGemsCollected)
+    {
+        case 3:
+            setImage(greengem[3]);
+            break;
+        case 2:
+            setImage(greengem[2]);
+            break;
+        case 1:
+            setImage(greengem[1]);
+            break;
+        default:
+            setImage(greengem[0]);
+            break;
+    }
+}
+
     
     @Override
     public void addedToWorld(World world) {

@@ -9,7 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class ContinueButton extends Actor
 {
     DirectionsFrame directions;
-    LoseFrame loseScreen;
     WinFrame winScreen;
 
     public ContinueButton(){

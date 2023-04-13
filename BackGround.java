@@ -12,8 +12,13 @@ public class BackGround extends World
     public PlayerActor player = null;
     public KongActor kong = null;
     public Gem greengem = null;
-    public GemCollected gc = null;
+    public Gem greengemcopy1 = null;
+    public Gem greengemcopy2 = null;
+    private boolean switchToWorld = false;
     
+    public GemCollected gc = null;
+    private GreenfootSound backgroundMusic;
+
     public WinLoseActor winlose = null;
         
     public static enum State {PLAYING,WIN,LOSE,NAN}
@@ -29,7 +34,11 @@ public class BackGround extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(288, 376,1);        
-        
+        // loads background music
+        // starts background music 
+        backgroundMusic = new GreenfootSound("8d82b5_Donkey_Kong_Country_Theme_Song.mp3");
+        backgroundMusic.play();
+
         player = new PlayerActor();
         addObject(player, 0, 0);
         player.setFoot(58,363);
@@ -39,8 +48,16 @@ public class BackGround extends World
         kong.setFoot(215,76);
        
         greengem = new Gem();
+        greengemcopy1= new Gem();
+        greengemcopy2= new Gem();
+
         addObject(greengem,0,0);
+        addObject(greengemcopy1,0,0);
+        addObject(greengemcopy2,0,0);
+        
         greengem.setFoot(140,27);
+        greengemcopy1.setFoot(140,260);
+        greengemcopy2.setFoot(140,160);
     
         gc = new GemCollected();
         addObject(gc,0,0);
@@ -64,6 +81,9 @@ public class BackGround extends World
         removeObject(player);
         removeObject(kong);
         removeObject(greengem);
+        removeObject(greengemcopy1);
+        removeObject(greengemcopy2);
+        
         removeObject(gc);
         
         player = new PlayerActor();
@@ -75,8 +95,16 @@ public class BackGround extends World
         kong.setFoot(215,76);
        
         greengem = new Gem();
+        greengemcopy1 = new Gem();
+        greengemcopy2 = new Gem();
+   
+        
         addObject(greengem,0,0);
+        addObject(greengemcopy1,0,0);
+        addObject(greengemcopy2,0,0);
         greengem.setFoot(140,27);
+        greengemcopy1.setFoot(140,27);
+        greengemcopy2.setFoot(140,27);
         
         gc = new GemCollected();
         addObject(gc,0,0);
@@ -89,52 +117,79 @@ public class BackGround extends World
     
     
     @Override
-    public void act()
+public void act()
+{
+    if(gameState == State.NAN)
     {
-        if(gameState == State.NAN)
-        {
-            //when they hit the play button splash scren disappears
-            gameState = State.PLAYING;
+        //when they hit the play button splash scren disappears
+        gameState = State.PLAYING;
+    }
+    /*We will have modes for this*/
+    //System.out.println("Background Act");
+    if (gameState == State.PLAYING) {
+            // check if the player is touching a Gem
+    if (player.isGemTouching(Gem.class)) {
+            switchToWorld = true;
+    }
+
+            if (switchToWorld) {
+            backgroundMusic.stop();
+            Greenfoot.setWorld(new Mini_Battleship_World());
         }
-        /*We will have modes for this*/
-        //System.out.println("Background Act");
-        if(gameState == State.PLAYING)
+
+        if(player.isDead())
         {
-            if(player.isDead())
+            if(player.numGemsCollected > 0) /// add projectcomm pi code to change 
+            //all gems collected 
             {
-                if(player.numGemsCollected > 0) /// add projectcomm pi code to change 
-                //all gems collected 
-                {
-                    player.numGemsCollected--;
-                    player.reset();
-                }
-                else
+                player.numGemsCollected--;
+                player.reset();
+            }
+            else
+            {
+                if(player.numGemsCollected >= 3)
                 {
                     gameState = State.WIN;
                     counter = 3;
                 }
-            }
-        }
-        
-        if(gameState == State.WIN)
-        {
-            if(counter < 1)
-            {
-                //addObject(winlose,85,55);
-                addObject(winlose,140,200);
-                winlose.setWin();
-                removeObject(greengem);
-                player.kill();
-            }
-            counter++;
-            if(counter > 100)
-            {
-                removeObject(winlose);
-                resetGame();
+                else
+                {
+                    gameState = State.LOSE;
+                    counter = 3;
+                }
             }
         }
     }
     
+    if(gameState == State.WIN)
+    {
+        if(counter == 3)
+        {
+            //addObject(winlose,85,55);
+            addObject(winlose,140,200);
+            winlose.setWin();
+            removeObject(greengem);
+            player.kill();
+        }
+        counter++;
+        if(counter > 100)
+        {
+            removeObject(winlose);
+            resetGame();
+        }
+        
+    }
+
+    
+}
+public void switchWorld() {
+    if (player.isGemTouching(Gem.class)) {
+        Greenfoot.setWorld(new Mini_Battleship_World());
+    }
+}
+
+
+
     public void winTheGame()
     {
         gameState = State.WIN;

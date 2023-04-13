@@ -26,8 +26,7 @@ public class Gem2 extends Actor
      */
     public void act() 
     {
-        // Add your action code here.
-    }    
+    }  
 
     public void addedToWorld(World world) {
         this.world = (BackGround) world;    
