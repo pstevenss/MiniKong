@@ -18,6 +18,8 @@ public class Gem2 extends Actor
     
     public Gem2()
     {
+        setImage("greengemcopy1.png");
+
     }
     
     /**

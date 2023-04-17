@@ -11,17 +11,22 @@ public class EnemyShip1 extends Ships
     public static boolean shipSunk;
     
     public EnemyShip1(){
+        setImage("EnemyVert.png");
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/3, image.getHeight()/3);
-        //getImage().setTransparency(0);
-        
+        getImage().setTransparency(0);
     }
+    
     /**
      * Act - do whatever the EnemyShip1 wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        // Add your action code here.
+        if (isSunk()){
+            GreenfootImage img = new GreenfootImage("EnemyVertDestroyed.png");
+            img.scale(img.getWidth()/3, img.getHeight()/3);
+            setImage(img);
+        }
     }
 }

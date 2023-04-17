@@ -10,6 +10,7 @@ public class Miss extends Miss_Or_Hit
 {
     public Miss()
     {
+        setImage("miss.png");
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/45, image.getHeight()/45);
     }

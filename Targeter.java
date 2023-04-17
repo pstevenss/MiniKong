@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.List;
 /**
  * Write a description of class Targeter here.
  * 
@@ -8,11 +8,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Targeter extends Actor
 {
-    public static boolean playerTurn = true;
+    public static boolean playerTurn = true; //Determines if it's the player's turn or not
     public Targeter()
     {
+        setImage("targeter.png");
         GreenfootImage image = getImage();
-        image.scale(image.getWidth()/50, image.getHeight()/50);
+        image.scale(image.getWidth()/95, image.getHeight()/95);
     }
     
     /**
@@ -25,6 +26,9 @@ public class Targeter extends Actor
             mouseMove();
             mouseClick();
         }
+        List<Ships> shipList = getObjectsAtOffset(0,0,Ships.class);
+
+        //System.out.println(shipList.isEmpty());
     }
     
     public void mouseClick()
@@ -32,18 +36,26 @@ public class Targeter extends Actor
         if(Greenfoot.mouseClicked(this))
         {   
             MouseInfo mouse = Greenfoot.getMouseInfo();
-            if(isShip())
+            List<Ships> shipList = getObjectsAtOffset(0,0,Ships.class);
+            if(!(shipList.isEmpty()))
             {
-                if(isAlreadyGuessed() == false)
+                if(!(isAlreadyGuessed()))
                 {
                    getWorld().addObject(new Hit(), mouse.getX(), mouse.getY());
+                   Greenfoot.playSound("Studio_Project (1).mp3");
+                   Greenfoot.delay(20);
+                   for(Ships ship: shipList){
+                       ship.hit();
+                    }
                    playerTurn = false;
                 }
             }
-            else
+            else if (shipList.isEmpty())
             {
-                if(isAlreadyGuessed() == false){
+                if(!(isAlreadyGuessed())){
                     getWorld().addObject(new Miss(), mouse.getX(), mouse.getY());
+                    Greenfoot.playSound("Mario Oh No!.mp3");
+                    Greenfoot.delay(20);
                     playerTurn = false;
                 }
             }
@@ -63,6 +75,7 @@ public class Targeter extends Actor
             }
         }
     }
+    
     public boolean isShip()
     {
         Actor actor = getOneObjectAtOffset(0,0,Ships.class);
