@@ -18,7 +18,7 @@ public class Gem2 extends Actor
     
     public Gem2()
     {
-        setImage("greengemcopy1.png");
+        setImage("greengemcopy2.png");
 
     }
     
@@ -28,6 +28,7 @@ public class Gem2 extends Actor
      */
     public void act() 
     {
+        
     }  
 
     public void addedToWorld(World world) {

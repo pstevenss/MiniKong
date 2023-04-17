@@ -182,13 +182,14 @@ public class BackGround extends World
     public void switchWorld() {
         if (player.isGemTouching(Gem.class)) {
             Greenfoot.setWorld(new Mini_Battleship_World(this));
+            //removeObject(
         }
     }
     
     public World getPreviousWorld(){
         return this;
     }
-
+    
     public void winTheGame()
     {
         gameState = State.WIN;
