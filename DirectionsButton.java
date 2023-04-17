@@ -10,6 +10,7 @@ public class DirectionsButton extends Actor
 {
 
     public DirectionsButton(){
+        setImage("directionsButton.png");
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/2, image.getHeight()/2);
     }
@@ -21,6 +22,7 @@ public class DirectionsButton extends Actor
     public void act()
     {
         if(Greenfoot.mouseClicked(this)){
+            Greenfoot.playSound("Studio_Project.mp3");
             World myCurrentWorld = getWorld();
             Greenfoot.setWorld(new DirectionsFrame(myCurrentWorld));
         }

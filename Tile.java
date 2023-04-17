@@ -8,9 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tile extends Actor
 {
-    public boolean guess = false;
-    public boolean ship = false;
     public Tile(){
+        setImage("Wall.jpg");
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/3, image.getHeight()/3);
     }
@@ -20,25 +19,9 @@ public class Tile extends Actor
      */
     public void act()
     {
-        if(guessed())
-        {
-            guess = true;
-        }
-        if(shipSpace())
-        {
-            ship = true;
-        }
+        
     }
-    public boolean guessed()
-    {
-        Actor actor = getOneObjectAtOffset(0, 0, Miss_Or_Hit.class);
-        return actor != null;
-    }
-    public boolean shipSpace()
-    {
-        Actor actor = getOneObjectAtOffset(0, 0, Ships.class);
-        return actor != null;
-    }
+    
     /**
      * Checks the adyacent blocks (no diagonals) of previous missed attacks.
      * <p>
