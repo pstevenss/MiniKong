@@ -74,6 +74,7 @@ public boolean isDying() {
     }
     return false;
 }
+
 public boolean isGemTouching(Class<?> cls) {
     return isTouching(cls);
 }

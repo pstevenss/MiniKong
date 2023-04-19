@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class BackGround here.
@@ -9,7 +10,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class BackGround extends World
 {
 
-    public PlayerActor player = null;
+    public PlayerActor player = null; 
     public KongActor kong = null;
     public Gem greengem = null;
     public Gem greengemcopy1 = null;
@@ -25,6 +26,8 @@ public class BackGround extends World
 
     public State gameState = State.PLAYING;
     int counter = 0;
+
+    
 
     /**
      * Constructor for objects of class BackGround.
@@ -75,6 +78,8 @@ public class BackGround extends World
         //Greenfoot.start();
 
     }
+ 
+
     public void resetGame()
     {
         removeObject(player);
@@ -178,16 +183,36 @@ public class BackGround extends World
         }
 
     }
-    
+        
     public void switchWorld() {
         if (player.isGemTouching(Gem.class)) {
-            Greenfoot.setWorld(new Mini_Battleship_World(this));
+            World currentWorld = player.getWorld();
+            if (currentWorld instanceof Mini_Battleship_World) {
+                Mini_Battleship_World miniWorld = (Mini_Battleship_World) currentWorld;
+                List<Gem> gems = miniWorld.getObjects(Gem.class);
+                if (!gems.isEmpty()) {
+                    Gem gem = gems.get(0);
+                    miniWorld.removeObject(gem);
+                }
+            }
+            World bgWorld = new BackGround();
+            List<Gem2> greenGems = bgWorld.getObjects(Gem2.class);
+            if (!greenGems.isEmpty()) {
+                Gem2 greenGem = greenGems.get(0);
+                int gemX = greenGem.getX();
+                int gemY = greenGem.getY();
+                bgWorld.addObject(player, gemX, gemY);
+                bgWorld.removeObject(greenGem);
+            }
+            Greenfoot.setWorld(bgWorld);
         }
     }
-    
-    public World getPreviousWorld(){
+
+
+    public World getPreviousWorld() {
         return this;
     }
+
 
     public void winTheGame()
     {
