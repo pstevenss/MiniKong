@@ -23,5 +23,8 @@ public class Player_2  extends Actor
             int x = this.getX();
             ((ConnectBoard) getWorld()).add(x, this);
         }
-    }     
+    } 
+    public Player_2(){
+        setImage("button-green.png");
+    }
 }

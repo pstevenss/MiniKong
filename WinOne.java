@@ -23,4 +23,7 @@ public class WinOne  extends Actor
             Greenfoot.setWorld(prevWorld.getPreviousWorld());
         }
     }    
+    public WinOne(){
+        setImage("1win.png");
+    }
 }

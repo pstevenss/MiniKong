@@ -24,4 +24,7 @@ public class WinTwo  extends Actor
            Greenfoot.setWorld(prevWorld.getPreviousWorld());
        }
     }    
+    public WinTwo(){
+        setImage("2win.png");
+    }
 }

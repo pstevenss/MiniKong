@@ -24,7 +24,7 @@ public class ConnectBoard  extends World
       {0,0,0,0,0,0,0},
       {0,0,0,0,0,0,0},
     };
-    
+    GreenfootSound backgroundMusic = new GreenfootSound("Chill Calm Board Game Night.mp3");
     /*public ConnectBoard()
 
     {    
@@ -36,8 +36,9 @@ public class ConnectBoard  extends World
     
     public ConnectBoard(World previousWorld)
     {
-    
+
         super(7, 6, 60);
+        setBackground("ConnectBoard.png");
         addObject(new Player_1(),0,0);
         setPaintOrder(WinOne.class, WinTwo.class, Draw.class, Player_1.class, Player_2.class);
         b = new Board(bb);
@@ -66,7 +67,9 @@ public class ConnectBoard  extends World
     public World getPreviousWorld(){
     return prevWorld;
 }
-
+public void act(){
+    backgroundMusic.playLoop();
+}
     public void add(int x, Player_2 p2)
     {
         if(openColumns[x] != -1)

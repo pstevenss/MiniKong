@@ -24,4 +24,7 @@ public class Player_1  extends Actor
             ((ConnectBoard) getWorld()).add(x, this);
         }
     }    
+    public Player_1(){
+        setImage("button-blue.png");
+    }
 }

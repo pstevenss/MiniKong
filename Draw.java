@@ -18,6 +18,10 @@ public class Draw  extends Actor
        {
            ((ConnectBoard) getWorld()).resetBoard();
        }
-    }    
+    } 
+    public Draw(){
+        setImage("Draw.png");
+    }
 }
+
 
