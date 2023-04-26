@@ -23,14 +23,14 @@ public class MazeWinScreen extends World
     
     private BackGround prevWorld;
     
-    public MazeWinScreen(BackGround previousWorld)
+    public MazeWinScreen(BackGround previousWorld2)
     {
         this();
-        prevWorld= previousWorld;
+        prevWorld = previousWorld2;
     }
     
-    public void switchWorld(){
-        Greenfoot.setWorld(prevWorld.getPreviousWorld());
+    public World getPreviousWorld(){
+        return prevWorld;
     }
     
     

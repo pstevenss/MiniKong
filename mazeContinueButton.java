@@ -18,10 +18,10 @@ public class mazeContinueButton extends Actor
      */
     public void act()
     {
-        if (Greenfoot.mouseClicked(this)){
-            World myWorld =getWorld();
-            MazeWinScreen currentWorld=(MazeWinScreen)myWorld;
-            currentWorld.switchWorld();
+        if (Greenfoot.mouseClicked(this)) {
+            MazeWinScreen myWorld = (MazeWinScreen)getWorld();  
+            Greenfoot.setWorld(myWorld.getPreviousWorld());
+        }
         }
     }
-}
+

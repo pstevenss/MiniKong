@@ -14,10 +14,17 @@ public class Gem extends Actor
 
     private int width = 12;
     private int height = 12;
+    private int gemNumber;
 
+    
+    public Gem(int gemNumber){
+        this.gemNumber = gemNumber;
+        setImage("greengem.png");
+    }
     
     public Gem()
     {
+        gemNumber = 0;
         setImage("greengem.png");
     }
     
@@ -41,5 +48,9 @@ public class Gem extends Actor
         footy = y;
         //setY(y - (int)(height/2));
         setLocation(x,y-(int)(height/2));
+    }
+    
+    public int getGemNumber(){
+        return gemNumber;
     }
 }

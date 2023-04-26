@@ -17,10 +17,10 @@ public class MazeGame extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(12, 12, 50); 
+        prevWorld= previousWorld;
         GreenfootImage background = new GreenfootImage("space1.jpg");
         setBackground(background);
         prepare();
-        prevWorld= previousWorld;
         addObject(new MazeTimer(prevWorld),129,30);
         addObject(new MazeRunner(), 0, 11);
     }
