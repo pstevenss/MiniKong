@@ -75,8 +75,9 @@ public boolean isDying() {
     return false;
 }
 
-public boolean isGemTouching(Class<?> cls) {
-    return isTouching(cls);
+public Gem getTouchingGem() {
+    return (Gem)getOneIntersectingObject(Gem.class);
+
 }
 
 /**

@@ -24,10 +24,8 @@ public class BackGround extends World
 
     public static enum State {PLAYING,WIN,LOSE,NAN}
 
-    public State gameState = State.PLAYING;
+    public State gameState = State.PLAYING; 
     int counter = 0;
-
-    
 
     /**
      * Constructor for objects of class BackGround.
@@ -78,7 +76,6 @@ public class BackGround extends World
         //Greenfoot.start();
 
     }
- 
 
     public void resetGame()
     {
@@ -130,13 +127,12 @@ public class BackGround extends World
         //System.out.println("Background Act");
         if (gameState == State.PLAYING) {
             // check if the player is touching a Gem
-            if (player.isGemTouching(Gem.class)) {
-                switchToWorld = true;
-            }
-
-            if (switchToWorld) {
+            Gem gem = player.getTouchingGem();
+            
+            if (gem != null) {
                 backgroundMusic.stop();
-                Greenfoot.setWorld(new Mini_Battleship_World(this));
+                Greenfoot.setWorld(new Mini_Battleship_World(this)); 
+                removeObject(gem);
             }
 
             if(player.isDead())
@@ -183,8 +179,8 @@ public class BackGround extends World
         }
 
     }
-        
-    public void switchWorld() {
+
+    /*public void switchWorld() {
         if (player.isGemTouching(Gem.class)) {
             World currentWorld = player.getWorld();
             if (currentWorld instanceof Mini_Battleship_World) {
@@ -194,25 +190,25 @@ public class BackGround extends World
                     Gem gem = gems.get(0);
                     miniWorld.removeObject(gem);
                 }
+            } else if (currentWorld instanceof BackGround) {
+                BackGround bgWorld = (BackGround) currentWorld;
+                List<Gem2> greenGems = bgWorld.getObjects(Gem2.class);
+                if (!greenGems.isEmpty()) {
+                    Gem2 greenGem = greenGems.get(0);
+                    int gemX = greenGem.getX();
+                    int gemY = greenGem.getY();
+                    bgWorld.addObject(player, gemX, gemY);
+                    bgWorld.removeObject(greenGem); // remove the Gem2 object from the world
+                }
             }
-            World bgWorld = new BackGround();
-            List<Gem2> greenGems = bgWorld.getObjects(Gem2.class);
-            if (!greenGems.isEmpty()) {
-                Gem2 greenGem = greenGems.get(0);
-                int gemX = greenGem.getX();
-                int gemY = greenGem.getY();
-                bgWorld.addObject(player, gemX, gemY);
-                bgWorld.removeObject(greenGem);
-            }
-            Greenfoot.setWorld(bgWorld);
-        }
+            Greenfoot.setWorld(getPreviousWorld());
+        } 
     }
-
-
+*/
+ 
     public World getPreviousWorld() {
         return this;
     }
-
 
     public void winTheGame()
     {

@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class CoinActor here.
@@ -28,7 +29,8 @@ public class Gem2 extends Actor
      */
     public void act() 
     {
-    }  
+
+    }   
 
     public void addedToWorld(World world) {
         this.world = (BackGround) world;    
