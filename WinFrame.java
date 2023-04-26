@@ -9,17 +9,21 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class WinFrame extends World
 {
     private BackGround prevWorld;
-    
+
     public WinFrame(BackGround previousWorld)
     {
         this();
         prevWorld = previousWorld;
     }
-    
+
+    public World getPreviousWorld(){
+        return prevWorld;
+    }
+
     public void switchWorld(){
         Greenfoot.setWorld(prevWorld.getPreviousWorld());
     }
-    
+
     /**
      * Constructor for objects of class WinFrame.
      * 

@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class BackGround here.
@@ -9,7 +10,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class BackGround extends World
 {
 
-    public PlayerActor player = null;
+    public PlayerActor player = null; 
     public KongActor kong = null;
     public Gem greengem = null;
     public Gem greengemcopy1 = null;
@@ -23,7 +24,7 @@ public class BackGround extends World
 
     public static enum State {PLAYING,WIN,LOSE,NAN}
 
-    public State gameState = State.PLAYING;
+    public State gameState = State.PLAYING; 
     int counter = 0;
 
     /**
@@ -49,8 +50,8 @@ public class BackGround extends World
         kong.setFoot(215,76);
 
         greengem = new Gem();
-        greengemcopy1= new Gem();
-        greengemcopy2= new Gem();
+        greengemcopy1= new Gem(2);
+        greengemcopy2= new Gem(1);
 
         addObject(greengem,0,0);
         addObject(greengemcopy1,0,0);
@@ -75,6 +76,7 @@ public class BackGround extends World
         //Greenfoot.start();
 
     }
+
     public void resetGame()
     {
         removeObject(player);
@@ -94,8 +96,8 @@ public class BackGround extends World
         kong.setFoot(215,76);
 
         greengem = new Gem();
-        greengemcopy1 = new Gem();
-        greengemcopy2 = new Gem();
+        greengemcopy1 = new Gem(2);
+        greengemcopy2 = new Gem(1);
 
         addObject(greengem,0,0);
         addObject(greengemcopy1,0,0);
@@ -125,15 +127,21 @@ public class BackGround extends World
         //System.out.println("Background Act");
         if (gameState == State.PLAYING) {
             // check if the player is touching a Gem
-            if (player.isGemTouching(Gem.class)) {
-                switchToWorld = true;
-            }
+            Gem gem = player.getTouchingGem();
 
-            if (switchToWorld) {
+            if (gem != null && gem.getGemNumber() == 2) {
                 backgroundMusic.stop();
-                Greenfoot.setWorld(new Mini_Battleship_World(this));
+                Greenfoot.setWorld(new Mini_Battleship_World(this)); 
+                removeObject(gem);
             }
-
+            
+            if (gem != null && gem.getGemNumber() == 1) {
+                backgroundMusic.stop();
+                Greenfoot.setWorld(new MazeGame(this)); 
+                removeObject(gem);
+            }
+        
+            /*
             if(player.isDead())
             {
                 if(player.numGemsCollected > 0) /// add projectcomm pi code to change 
@@ -155,7 +163,7 @@ public class BackGround extends World
                         counter = 3;
                     }
                 }
-            }
+            }*/
         }
 
         if(gameState == State.WIN)
@@ -178,14 +186,34 @@ public class BackGround extends World
         }
 
     }
-    
-    public void switchWorld() {
-        if (player.isGemTouching(Gem.class)) {
-            Greenfoot.setWorld(new Mini_Battleship_World(this));
-        }
+
+    /*public void switchWorld() {
+    if (player.isGemTouching(Gem.class)) {
+    World currentWorld = player.getWorld();
+    if (currentWorld instanceof Mini_Battleship_World) {
+    Mini_Battleship_World miniWorld = (Mini_Battleship_World) currentWorld;
+    List<Gem> gems = miniWorld.getObjects(Gem.class);
+    if (!gems.isEmpty()) {
+    Gem gem = gems.get(0);
+    miniWorld.removeObject(gem);
     }
-    
-    public World getPreviousWorld(){
+    } else if (currentWorld instanceof BackGround) {
+    BackGround bgWorld = (BackGround) currentWorld;
+    List<Gem2> greenGems = bgWorld.getObjects(Gem2.class);
+    if (!greenGems.isEmpty()) {
+    Gem2 greenGem = greenGems.get(0);
+    int gemX = greenGem.getX();
+    int gemY = greenGem.getY();
+    bgWorld.addObject(player, gemX, gemY);
+    bgWorld.removeObject(greenGem); // remove the Gem2 object from the world
+    }
+    }
+    Greenfoot.setWorld(getPreviousWorld());
+    } 
+    }
+     */
+
+    public World getPreviousWorld() {
         return this;
     }
 

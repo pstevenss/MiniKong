@@ -14,7 +14,7 @@ public class EnemyShip1 extends Ships
         setImage("EnemyVert.png");
         GreenfootImage image = getImage();
         image.scale(image.getWidth()/3, image.getHeight()/3);
-        getImage().setTransparency(0);
+        //getImage().setTransparency(100);
     }
     
     /**
