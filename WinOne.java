@@ -8,10 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class WinOne  extends Actor
 {
-    private ConnectBoard prevWorld;
+    private BackGround prevWorld;
     
     public WinOne(World previousWorld) {
-    prevWorld = (ConnectBoard)previousWorld;
+    prevWorld = (BackGround)previousWorld;
     }
     /**
      * Act - do whatever the WinOne wants to do. This method is called whenever
@@ -20,6 +20,7 @@ public class WinOne  extends Actor
     public void act() 
     {
         if(Greenfoot.mouseClicked(this)) {
+            ConnectBoard myWorld = (ConnectBoard)getWorld();  
             Greenfoot.setWorld(prevWorld.getPreviousWorld());
         }
     }    

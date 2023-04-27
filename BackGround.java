@@ -140,6 +140,13 @@ public class BackGround extends World
                 Greenfoot.setWorld(new MazeGame(this)); 
                 removeObject(gem);
             }
+            
+            if (gem != null && gem.getGemNumber() == 0) {
+                backgroundMusic.stop();
+                Greenfoot.setWorld(new ConnectBoard(this)); 
+                removeObject(gem);
+                winTheGame();
+            }
         
             /*
             if(player.isDead())
@@ -166,7 +173,7 @@ public class BackGround extends World
             }*/
         }
 
-        if(gameState == State.WIN)
+        if(gameState == State.WIN) //projevt comm
         {
             if(counter == 3)
             {
@@ -175,6 +182,12 @@ public class BackGround extends World
                 winlose.setWin();
                 removeObject(greengem);
                 player.kill();
+                try{
+                    ProjectComm comm = new ProjectComm("froggers");
+                    comm.sendCommand("winner");
+                }catch (java.io.IOException ioe){
+                    System.out.println(ioe);
+                }
             }
             counter++;
             if(counter > 100)

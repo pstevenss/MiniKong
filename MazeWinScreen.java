@@ -16,7 +16,7 @@ public class MazeWinScreen extends World
     public MazeWinScreen()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1280, 720, 1);
+        super(1220, 800, 1);
         setBackground("Slide1.jpg");
         addObject (new mazeContinueButton(), 750, 650);
     }
