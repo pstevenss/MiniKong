@@ -139,4 +139,7 @@ Dr. Rasamny helped make branches for each minigame, taught us how to use GitHub,
 * Members worked on fixing bugs, games, and presentations for the week
 
 # Week of April 17
+* Finished debugging and implementing the ProjectComm folder into our code
+
 # Week of April 24
+* Debugged last minutes errors regarding the 3D printed barrell and the items to be put inside
